@@ -11,6 +11,7 @@ class App extends Component {
     state = {
         clickCount: getCookie('count') || 0,
         usernameIsEditable: false,
+        username: getCookie('username') ||''
     }
 
     handleClick = () => {
@@ -31,6 +32,7 @@ class App extends Component {
         this.setState({
             usernameIsEditable: false,
         });
+        document.cookie = `username=${this.state.username}`;
     }
 
     handleChange = ({target}) => {
@@ -46,7 +48,6 @@ class App extends Component {
                     <h1>Click the Cookie!!</h1>
                     <p>
                         Username: 
-             {this.state.username}
                         {/* The next block of code is conditional rendering.
             Look at the documentation https://reactjs.org/docs/conditional-rendering.html
             if this is new to you. */}
@@ -56,7 +57,10 @@ class App extends Component {
                                 <button onClick={this.saveUsername}>Save Username</button>
                             </div>
                              :
-                            <button onClick={this.editUsername}>Edit Username</button>
+                            <div>
+                                {this.state.username}
+                                <button onClick={this.editUsername}>Edit Username</button>
+                            </div>
                         }
                     </p>
                     <p>{this.state.clickCount}</p>
